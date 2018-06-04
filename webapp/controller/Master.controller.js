@@ -22,7 +22,7 @@ sap.ui.define([
 			});
 			oView.setModel(i18nModel, "i18n");
 			var oController = oView.getController();
-			var osite = oView.byId("__PLANT");
+			/*var osite = oView.byId("__PLANT");
 			var URL = "/sap/opu/odata/sap/ZGET_PLANT_SRV/";
 			var OData = new ODataModel(URL, true);
 			var query = "/S_T001WSet(Type='03')";
@@ -50,7 +50,8 @@ sap.ui.define([
 				MessageBox.error(JSON.parse(error.response.body).error.message.value, {
 					title: "Error"
 				});
-			});
+			});*/
+			oController.GetData();
 		},
 
 		ClearBox: function() {
@@ -67,14 +68,10 @@ sap.ui.define([
 					oView.setModel(model, "itemModel");
 					MessageBox.show(response.Message, {
 						icon: MessageBox.Icon.INFORMATION,
-						actions: [MessageBox.Action.OK],
-						onClose: function(oAction) {
-							if (oAction === "OK") {
-								var oArticle_input = oView.byId("Article");
-								jQuery.sap.delayedCall(500, this, function() {
-									oArticle_input.focus();
-								});
-							}
+						onClose: function() {
+							jQuery.sap.delayedCall(500, this, function() {
+								oView.byId("SearchArt").focus();
+							});
 						}
 					});
 				}
@@ -90,7 +87,7 @@ sap.ui.define([
 			var oView = this.getView();
 			var oArticle_input = oView.byId("SearchArt");
 			var oController = oView.getController();
-			var material = oView.byId("SearchArt").getValue();
+			var material = oArticle_input.getValue();
 			var URL2 = "/sap/opu/odata/sap/ZCHECK_VALUE_SCAN_SRV/MessageSet(PValue='06" + material + "')";
 			debugger;
 			BusyIndicator.show();
@@ -127,8 +124,6 @@ sap.ui.define([
 			var oTable = oView.byId("table1");
 			var searchString = null;
 			var URL = null;
-			oTable.setVisible(true);
-			oView.byId("TOOL_BAR").setVisible(true);
 			if (from == null) {
 				searchString = "A" + material + "/" + "03";
 				URL = "/sap/opu/odata/sap/ZPREPARE_FLUX_SRV/ItemsSet?$filter=Zfilter " + "%20eq%20" + "%27" + searchString + "%27&$format=json";
@@ -166,6 +161,8 @@ sap.ui.define([
 				});
 				model.setSizeLimit(2000);
 				oView.setModel(model, "itemModel");
+				oTable.setVisible(true);
+				oView.byId("TOOL_BAR").setVisible(true);
 			}, function(error) {
 				BusyIndicator.hide();
 				MessageBox.error(JSON.parse(error.response.body).error.message.value, {

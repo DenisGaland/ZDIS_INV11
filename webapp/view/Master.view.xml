@@ -1,9 +1,9 @@
 <mvc:View controllerName="Press_Shop_Fiori2.controller.Master" xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:u="sap.ui.unified"
 	xmlns:c="sap.ui.core" xmlns:m="sap.m" xmlns:core="sap.ui.core" html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout"
 	xmlns:f="sap.ui.layout.form" xmlns:ui="sap.ui.commons" xmlns:tnt="sap.tnt" displayBlock="true">
-	<m:App>
+	<m:App class="sapUiSizeCompact">
 		<m:pages>
-			<m:Page showHeader="false">
+			<m:Page showHeader="false" binding="{GETPLANT>/S_T001WSet('03')}">
 				<m:content>
 					<m:Label text="{i18n>confirm}" width="100%" id="CONFIRM" visible="false"/>
 					<m:Label text="{i18n>yes}" width="100%" id="YES" visible="false"/>
@@ -12,7 +12,8 @@
 					<m:HBox width="100%" id="H_PLANT" alignContent="Start" alignItems="Center">
 						<m:items>
 							<sap.ui.core:Icon src="sap-icon://home" size="2em" xmlns:sap.ui.core="sap.ui.core" id="__icon0"/>
-							<m:Label text="Label" width="100%" id="__PLANT" design="Bold"/>
+							<!--<m:Label text="Label" width="100%" id="__PLANT" design="Bold"/>-->
+							<m:Label text="{GETPLANT>EPlant} {GETPLANT>ET001w/Name1}" width="100%" design="Bold"/>
 							<m:HBox width="10%" id="Space6" alignContent="Start" alignItems="Center"></m:HBox>
 							<m:HBox width="100%" id="TYPEFLUX" alignContent="Start" alignItems="Center" visible="false">
 								<m:items>
@@ -81,7 +82,7 @@
 											<core:Item key="4" text="4"/>
 											<core:Item key="5" text="5"/>
 											<core:Item key="6" text="6"/>
-										 	<core:Item key="7" text="7"/>
+											<core:Item key="7" text="7"/>
 											<core:Item key="8" text="8"/>
 											<core:Item key="9" text="9"/>
 											<core:Item key="10" text="10"/>
